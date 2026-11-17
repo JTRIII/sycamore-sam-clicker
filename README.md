@@ -9,7 +9,8 @@ Author: James Roberts (AI 602 – Prompt Engineering Theory and Application, Top
 
 ## Quick start
 
-1. Download or clone this repository.
+1. Download or clone this repository: <https://github.com/JTRIII/sycamore-sam-clicker>
+   (green **Code** button → **Download ZIP**).
 2. Open `index.html` in any modern browser (Chrome, Edge, Firefox or Safari).
 
 No installation, build step or internet connection is needed. See [docs/INSTALLATION.md](docs/INSTALLATION.md).

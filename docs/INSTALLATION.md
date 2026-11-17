@@ -9,7 +9,7 @@ Sycamore Sam Clicker is a set of static files. There is nothing to install or co
 
 ## Option 1: download a ZIP from GitHub
 
-1. Open the project's GitHub page.
+1. Open the project's GitHub page: <https://github.com/JTRIII/sycamore-sam-clicker>
 2. Click **Code → Download ZIP**.
 3. Unzip the file anywhere on your computer.
 4. Open the unzipped folder and double-click `index.html`. It opens in your default browser.
@@ -17,7 +17,7 @@ Sycamore Sam Clicker is a set of static files. There is nothing to install or co
 ## Option 2: clone with Git
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/JTRIII/sycamore-sam-clicker.git
 ```
 
 Then open `index.html` from the cloned folder in your browser.

@@ -10,9 +10,10 @@ lists what the AI did on the development computer and which permissions were use
 | Read files | The specification `.docx` in Downloads; listing the course folder | Read only |
 | Write files | Creating every file in `Sycamore Sam Clicker/`, and `.claude/launch.json` in the course folder (local preview server settings) | Course folder only |
 | Run shell commands | Commands listed below | Local only |
+| GitHub over SSH | Pushing to `JTRIII/sycamore-sam-clicker`, using the SSH key already set up on the computer | Approved by the user in chat |
 | Built-in browser | Loading the game from `http://localhost:8602`, screenshots, clicking, running test scripts in the page, resizing to desktop and phone sizes | Local game only |
 
-Not used: no internet access, no downloads, no packages installed, no GitHub push, no system
+Not used: no downloads, no packages installed, no system
 settings changed, no files outside the course folder changed (a temporary copy of the `.docx` was
 placed in the AI's own scratch folder for reading).
 
@@ -32,6 +33,9 @@ placed in the AI's own scratch folder for reading).
 | 10 | `printf ... > images/buildings/zz-test.svg; sed ...` and later `rm ...; sed ...` | Add, then remove, a temporary test image |
 | 11 | `date; wc -l ...` | Record time and count lines of code |
 | 12 | `git init`, `git add`, `git commit` | Create the local Git repository and first commit |
+| 13 | `which gh`, `gh auth status`, `which brew port`, `git config --global credential.helper`, `ls ~/.ssh`, `ssh -T git@github.com` | Check how the computer can reach GitHub (GitHub CLI not installed; SSH key works) |
+| 14 | `git ls-remote`, `git remote add origin git@github.com:JTRIII/sycamore-sam-clicker.git`, `git push -u origin main` | Push the project to the repository the user created (after the user approved) |
+| 15 | `git commit`, `git push` | Add the repository link to the documentation |
 
 Files were also created and edited with the AI tool's file-writing feature (not shell commands).
 
@@ -44,4 +48,4 @@ Stats panel, and took screenshots at 1400×850 and 375×812. All actions were on
 ## Human review
 
 The user should review the code and documents before submitting, add real ISU images that they have
-permission to use, and decide when to publish the repository to GitHub.
+permission to use, and keep the GitHub repository up to date with `git push` after future changes.
