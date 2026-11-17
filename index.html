@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sycamore Sam Clicker</title>
+  <meta name="description" content="An Indiana State University themed idle clicker game. Click the sycamore leaf!">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-leaf" viewBox="0 0 200 200" aria-hidden="true"><use href="#leaf-shape"/></svg>
+      <span>Sycamore Sam Clicker</span>
+    </div>
+    <nav class="menu" aria-label="Game menu">
+      <button id="btnSave" type="button" title="Save to this browser now">Save</button>
+      <button id="btnExport" type="button" title="Download your save as a file">Export save</button>
+      <button id="btnImport" type="button" title="Load a save file">Import save</button>
+      <button id="btnStats" type="button" aria-pressed="false">Stats</button>
+      <button id="btnReset" type="button" class="danger">Reset</button>
+    </nav>
+    <span id="saveStatus" class="save-status" aria-live="polite"></span>
+  </header>
+
+  <div class="ticker" aria-live="off"><span id="news"></span></div>
+
+  <main class="layout">
+    <section class="panel leaf-panel" aria-label="Your leaves">
+      <h1 class="grove-name">Your Sycamore Grove</h1>
+      <div class="counter">
+        <div id="leafCount" class="leaf-count">0 leaves</div>
+        <div id="cpsLabel" class="cps-label">per second: 0</div>
+      </div>
+      <button id="bigLeaf" class="big-leaf" type="button" aria-label="Click the sycamore leaf to earn leaves">
+        <svg id="leafSvg" viewBox="0 0 200 200" aria-hidden="true"><use href="#leaf-shape"/></svg>
+      </button>
+      <div id="buffBar" class="buff-bar" hidden></div>
+    </section>
+
+    <section class="panel campus-panel" aria-label="Campus">
+      <div id="campus" class="campus"></div>
+      <div id="statsPanel" class="stats-panel" hidden>
+        <h2>Statistics</h2>
+        <dl id="statsList" class="stats-list"></dl>
+        <h2>Achievements <span id="achCount"></span></h2>
+        <p class="hint">Each achievement boosts all production by 1%.</p>
+        <div id="achList" class="ach-list"></div>
+      </div>
+    </section>
+
+    <section class="panel store-panel" aria-label="Store">
+      <h2 class="store-title">Upgrades</h2>
+      <div id="upgrades" class="upgrades"></div>
+      <div class="store-head">
+        <h2 class="store-title">Buildings</h2>
+        <div class="buy-amount" role="group" aria-label="Buy amount">
+          <button type="button" data-amount="1" class="active">x1</button>
+          <button type="button" data-amount="10">x10</button>
+          <button type="button" data-amount="100">x100</button>
+        </div>
+      </div>
+      <div id="buildings" class="buildings"></div>
+    </section>
+  </main>
+
+  <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <input id="importFile" type="file" accept=".json,application/json" hidden>
+
+  <!-- Drawn sycamore leaf used for the clicker, logo, and golden leaf.
+       Replaced by a real image if one is listed in images/images.js. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="leafFill" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#3a9fd6"/>
+        <stop offset="0.55" stop-color="#00669a"/>
+        <stop offset="1" stop-color="#003a5d"/>
+      </linearGradient>
+      <linearGradient id="goldFill" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fff3a8"/>
+        <stop offset="0.5" stop-color="#f2c230"/>
+        <stop offset="1" stop-color="#b9860b"/>
+      </linearGradient>
+      <g id="leaf-shape">
+        <path class="leaf-stem" d="M100 152 C 99 170, 95 182, 88 196" fill="none" stroke-width="6" stroke-linecap="round"/>
+        <path class="leaf-body" stroke-width="4" stroke-linejoin="round" d="
+          M100 155 L80 158 L58 156 L34 150 L50 138 L62 122
+          L40 116 L14 112 L26 98 L12 78 L32 78 L46 72 L44 52 L62 62 L78 70
+          L74 50 L84 40 L88 22 L100 8 L112 22 L116 40 L126 50 L122 70
+          L138 62 L156 52 L154 72 L168 78 L188 78 L174 98 L186 112 L160 116
+          L138 122 L150 138 L166 150 L142 156 L120 158 Z"/>
+        <g class="leaf-veins" fill="none" stroke-width="3" stroke-linecap="round">
+          <path d="M100 152 L100 24"/>
+          <path d="M100 150 L24 86"/>
+          <path d="M100 150 L176 86"/>
+          <path d="M100 152 L44 146"/>
+          <path d="M100 152 L156 146"/>
+        </g>
+      </g>
+    </defs>
+  </svg>
+
+  <script src="images/images.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

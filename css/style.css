@@ -1,0 +1,256 @@
+/* Sycamore Sam Clicker - Indiana State University colors.
+   Sycamore Blue #00669A, navy #003A5D, white, with gold for special items. */
+:root {
+  --isu-blue: #00669a;
+  --isu-blue-light: #3a9fd6;
+  --isu-navy: #003a5d;
+  --isu-deep: #00243b;
+  --white: #ffffff;
+  --paper: #f3f7fa;
+  --ink: #0d2233;
+  --muted: #9fc3da;
+  --gold: #f2c230;
+  --good: #8be28b;
+  --bad: #ff8a8a;
+  --panel-border: #6fb5df;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+  --font: "Trebuchet MS", "Segoe UI", Tahoma, Verdana, sans-serif;
+  --display: Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--white);
+  background:
+    radial-gradient(circle at 20% 30%, rgba(58, 159, 214, 0.25), transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(0, 102, 154, 0.35), transparent 50%),
+    linear-gradient(160deg, var(--isu-navy), var(--isu-deep));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+button { font-family: inherit; }
+
+/* ---------- top bar ---------- */
+.topbar {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  padding: 8px 16px;
+  background: linear-gradient(var(--isu-blue), var(--isu-navy));
+  border-bottom: 3px solid var(--white);
+  box-shadow: var(--shadow);
+}
+.brand { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-size: 1.35rem; font-weight: bold; text-shadow: 0 2px 3px rgba(0,0,0,.5); }
+.brand-leaf { width: 30px; height: 30px; }
+.menu { display: flex; gap: 6px; flex-wrap: wrap; }
+.menu button, .buy-amount button {
+  background: rgba(255,255,255,0.12); color: var(--white);
+  border: 1px solid rgba(255,255,255,0.55); border-radius: 4px;
+  padding: 5px 10px; cursor: pointer; font-size: 0.9rem;
+}
+.menu button:hover, .buy-amount button:hover { background: rgba(255,255,255,0.25); }
+.menu button[aria-pressed="true"], .buy-amount button.active { background: var(--white); color: var(--isu-navy); }
+.menu button.danger:hover { background: #8b1e1e; }
+.save-status { margin-left: auto; font-size: 0.8rem; color: var(--muted); }
+
+/* ---------- news ticker ---------- */
+.ticker {
+  background: rgba(0,0,0,0.35); border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding: 6px 16px; font-style: italic; font-size: 0.92rem; min-height: 30px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+#news { display: inline-block; animation: newsIn 0.6s ease-out; }
+@keyframes newsIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* ---------- three-column layout ---------- */
+.layout {
+  flex: 1; min-height: 0;
+  display: grid; grid-template-columns: minmax(280px, 1fr) minmax(260px, 1.25fr) minmax(300px, 1fr);
+}
+.panel { min-height: 0; overflow-y: auto; position: relative; }
+.leaf-panel {
+  display: flex; flex-direction: column; align-items: center; padding: 20px 16px;
+  background: radial-gradient(circle at 50% 55%, rgba(255,255,255,0.12), transparent 60%);
+  border-right: 4px solid var(--panel-border);
+}
+.campus-panel { border-right: 4px solid var(--panel-border); background: rgba(0, 20, 35, 0.35); }
+.store-panel { background: rgba(0, 20, 35, 0.55); padding-bottom: 24px; }
+
+/* ---------- leaf column ---------- */
+.grove-name {
+  margin: 0 0 10px; padding: 6px 14px; font-family: var(--display); font-size: 1.3rem;
+  background: rgba(0,0,0,0.3); border-radius: 6px; text-align: center;
+}
+.counter { text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+.leaf-count { font-size: 1.9rem; font-weight: bold; font-family: var(--display); }
+.cps-label { font-size: 1rem; color: var(--muted); }
+.big-leaf {
+  margin: 28px 0 16px; width: min(300px, 70vw); aspect-ratio: 1; padding: 0;
+  background: none; border: none; cursor: pointer; border-radius: 50%;
+  filter: drop-shadow(0 8px 14px rgba(0,0,0,0.55));
+  transition: transform 0.08s ease-out;
+  animation: sway 6s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+}
+.big-leaf:hover { transform: scale(1.05); }
+.big-leaf:active { transform: scale(0.95); }
+.big-leaf:focus-visible { outline: 3px dashed var(--white); outline-offset: 6px; }
+.big-leaf svg, .big-leaf img { width: 100%; height: 100%; display: block; object-fit: contain; pointer-events: none; }
+@keyframes sway { 0%, 100% { rotate: -3deg; } 50% { rotate: 3deg; } }
+
+/* The leaf is shared via <use>, so colors pass in through inherited custom properties. */
+.leaf-body { fill: var(--leaf-fill, url(#leafFill)); stroke: var(--leaf-edge, #fff); }
+.leaf-stem { stroke: var(--leaf-edge, #fff); }
+.leaf-veins { stroke: var(--leaf-vein, rgba(255,255,255,0.75)); }
+.golden { --leaf-fill: url(#goldFill); --leaf-edge: #fff8d6; --leaf-vein: rgba(120, 80, 0, 0.6); }
+
+.buff-bar {
+  background: linear-gradient(90deg, #b9860b, var(--gold)); color: var(--ink);
+  padding: 6px 12px; border-radius: 6px; font-weight: bold; text-align: center;
+  box-shadow: var(--shadow);
+}
+.buff-bar[hidden] { display: none; }
+
+/* floating "+1" text and falling leaves */
+.float-text {
+  position: fixed; pointer-events: none; z-index: 50;
+  font-weight: bold; font-size: 1.3rem; color: var(--white);
+  text-shadow: 0 0 4px var(--isu-navy), 0 2px 3px #000;
+  animation: floatUp 1s ease-out forwards;
+}
+@keyframes floatUp { from { opacity: 1; transform: translate(-50%, 0); } to { opacity: 0; transform: translate(-50%, -70px); } }
+.falling-leaf {
+  position: fixed; top: -30px; width: 22px; height: 22px; pointer-events: none; z-index: 1; opacity: 0.8;
+  animation: fall linear forwards;
+}
+@keyframes fall { to { transform: translateY(110vh) rotate(540deg); } }
+
+/* ---------- campus column ---------- */
+.campus { padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+.campus-empty { color: var(--muted); text-align: center; margin-top: 40px; padding: 0 20px; line-height: 1.5; }
+.campus-row {
+  border: 2px solid rgba(255,255,255,0.35); border-radius: 8px;
+  background: linear-gradient(180deg, rgba(0,102,154,0.55), rgba(0,58,93,0.75));
+  padding: 6px 8px; box-shadow: var(--shadow);
+}
+.campus-row h3 { margin: 0 0 4px; font-size: 0.85rem; font-weight: normal; color: var(--muted); display: flex; justify-content: space-between; }
+.campus-icons { display: flex; flex-wrap: wrap; gap: 2px; font-size: 1.5rem; line-height: 1; }
+.campus-icons .icon { width: 30px; height: 30px; animation: pop 0.25s ease-out; }
+.campus-icons .more { font-size: 0.85rem; align-self: center; color: var(--white); padding-left: 4px; }
+@keyframes pop { from { transform: scale(0.3); } to { transform: scale(1); } }
+
+.icon { display: inline-flex; align-items: center; justify-content: center; }
+img.icon { object-fit: cover; border-radius: 4px; }
+
+/* stats overlay */
+.stats-panel { position: absolute; inset: 0; background: var(--isu-deep); padding: 16px 20px; overflow-y: auto; z-index: 5; }
+.stats-panel[hidden] { display: none; }
+.stats-panel h2 { font-family: var(--display); border-bottom: 2px solid var(--panel-border); padding-bottom: 4px; margin: 6px 0 10px; }
+.stats-list { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 0 0 18px; }
+.stats-list dt { color: var(--muted); }
+.stats-list dd { margin: 0; font-weight: bold; }
+.hint { color: var(--muted); font-size: 0.85rem; margin: 0 0 8px; }
+.ach-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+.ach { border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; padding: 6px 8px; font-size: 0.82rem; background: rgba(255,255,255,0.05); }
+.ach strong { display: block; font-size: 0.88rem; }
+.ach.locked { opacity: 0.45; }
+.ach.locked strong::before { content: "🔒 "; }
+.ach.earned { border-color: var(--gold); background: rgba(242,194,48,0.12); }
+.ach.earned strong::before { content: "🏆 "; }
+
+/* ---------- store column ---------- */
+.store-title {
+  margin: 0; padding: 8px 12px; font-family: var(--display); font-size: 1.15rem;
+  background: linear-gradient(var(--isu-blue), var(--isu-navy));
+  border-top: 1px solid rgba(255,255,255,0.4); border-bottom: 1px solid rgba(255,255,255,0.4);
+}
+.store-head { display: flex; align-items: center; background: linear-gradient(var(--isu-blue), var(--isu-navy)); padding-right: 8px; }
+.store-head .store-title { flex: 1; background: none; border: none; }
+.buy-amount { display: flex; gap: 4px; }
+.buy-amount button { padding: 3px 8px; font-size: 0.8rem; }
+
+.upgrades { display: flex; flex-wrap: wrap; gap: 4px; padding: 8px; min-height: 58px; }
+.upgrades .empty { color: var(--muted); font-size: 0.85rem; padding: 6px; }
+.upgrade {
+  width: 48px; height: 48px; font-size: 1.6rem; padding: 0; cursor: pointer;
+  border: 2px solid rgba(255,255,255,0.4); border-radius: 6px;
+  background: linear-gradient(var(--isu-blue), var(--isu-navy));
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+.upgrade img.icon { width: 40px; height: 40px; }
+.upgrade.can-buy { border-color: var(--white); box-shadow: 0 0 8px rgba(255,255,255,0.6); }
+.upgrade.cant-buy { filter: grayscale(0.7) brightness(0.7); }
+
+.buildings { display: flex; flex-direction: column; }
+.building {
+  display: grid; grid-template-columns: 52px 1fr auto; align-items: center; gap: 10px;
+  width: 100%; text-align: left; color: var(--white); cursor: pointer;
+  padding: 6px 12px; border: none; border-bottom: 1px solid rgba(255,255,255,0.18);
+  background: linear-gradient(90deg, rgba(0,102,154,0.75), rgba(0,58,93,0.75));
+}
+.building:hover { background: linear-gradient(90deg, rgba(58,159,214,0.85), rgba(0,102,154,0.85)); }
+.building .icon { width: 48px; height: 48px; font-size: 2rem; }
+.building .name { font-family: var(--display); font-size: 1.1rem; font-weight: bold; display: block; }
+.building .price { font-size: 0.9rem; }
+.building .price::before { content: "🍃 "; }
+.building .owned { font-size: 2rem; font-weight: bold; opacity: 0.55; font-family: var(--display); }
+.building.cant-buy .price { color: var(--bad); }
+.building.can-buy .price { color: var(--good); }
+.building.cant-buy { opacity: 0.75; }
+.building.mystery { cursor: default; opacity: 0.5; }
+.building.mystery .icon { filter: brightness(0); }
+
+/* ---------- tooltip & toasts ---------- */
+.tooltip {
+  position: fixed; z-index: 100; max-width: 320px; pointer-events: none;
+  background: var(--paper); color: var(--ink); border: 2px solid var(--isu-blue);
+  border-radius: 6px; padding: 10px 12px; box-shadow: var(--shadow); font-size: 0.88rem; line-height: 1.4;
+}
+.tooltip[hidden] { display: none; }
+.tooltip .tt-head { display: flex; justify-content: space-between; gap: 12px; font-weight: bold; color: var(--isu-navy); font-size: 1rem; }
+.tooltip .tt-cost { color: #1b6b1b; white-space: nowrap; }
+.tooltip .tt-cost.no { color: #a61b1b; }
+.tooltip .tt-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #557; }
+.tooltip p { margin: 6px 0 0; }
+.tooltip .tt-flavor { font-style: italic; color: #456; }
+
+.toasts { position: fixed; bottom: 16px; right: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 120; max-width: min(340px, calc(100vw - 32px)); }
+.toast {
+  background: var(--paper); color: var(--ink); border-left: 6px solid var(--isu-blue);
+  border-radius: 6px; padding: 10px 12px; box-shadow: var(--shadow); font-size: 0.9rem;
+  animation: toastIn 0.3s ease-out;
+}
+.toast.gold { border-left-color: var(--gold); }
+.toast.error { border-left-color: #c62828; }
+.toast strong { display: block; color: var(--isu-navy); }
+@keyframes toastIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: none; } }
+
+/* golden leaf */
+.golden-leaf {
+  position: fixed; width: 80px; height: 80px; z-index: 90; cursor: pointer;
+  background: none; border: none; padding: 0;
+  filter: drop-shadow(0 0 12px rgba(242,194,48,0.9));
+  animation: goldenPulse 1.2s ease-in-out infinite, goldenFade 13s linear forwards;
+}
+.golden-leaf svg, .golden-leaf img { width: 100%; height: 100%; pointer-events: none; }
+@keyframes goldenPulse { 0%, 100% { transform: scale(1) rotate(-8deg); } 50% { transform: scale(1.12) rotate(8deg); } }
+@keyframes goldenFade { 0% { opacity: 0; } 8% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; } }
+
+/* ---------- small screens: stack the columns ---------- */
+@media (max-width: 860px) {
+  body { overflow: auto; height: auto; }
+  .layout { display: flex; flex-direction: column; }
+  .panel { overflow: visible; }
+  .leaf-panel, .campus-panel { border-right: none; border-bottom: 4px solid var(--panel-border); }
+  .campus-panel { order: 3; min-height: 200px; }
+  .store-panel { order: 2; }
+  .save-status { margin-left: 0; width: 100%; }
+  .topbar { padding: 8px 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .big-leaf, #news, .golden-leaf { animation: none; }
+  .falling-leaf { display: none; }
+}
