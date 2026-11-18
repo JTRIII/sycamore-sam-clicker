@@ -72,3 +72,16 @@ file system in a real browser (the built-in browser only shows a static snapshot
 | 6 | Achievement text read "Earn a total of 1 leaves" and "Produce 1 leaves per second". | Singular wording for 1. |
 
 All unit tests were re-run after the fixes: 16 passed, 0 failed.
+
+## 4. Image update testing (2026-11-18)
+
+After real ISU photos replaced the emoji icons:
+
+| Check | Result |
+| --- | --- |
+| Unit tests | 16 passed, 0 failed |
+| All 12 buildings and all upgrades show photos in the store, tooltips and campus view (104 images on the page, none broken) | Pass |
+| No emoji icons left in the store or campus view | Pass |
+| No failed network requests | Pass |
+| Big leaf, top-bar logo, falling leaves and golden leaf use the ISU logo leaf; golden leaf is gold | Pass |
+| Price and achievement icons use the ISU leaf (gold for earned, gray for locked) | Pass |

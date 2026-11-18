@@ -28,9 +28,12 @@ Sycamore Sam Clicker/
 │   ├── engine.js         Game rules (SSC.engine)
 │   └── game.js           Browser UI and game loop (SSC.game)
 ├── images/
-│   ├── images.js         List of real ISU image files to use (SSC.images)
-│   ├── README.md         How to add images, and image permissions
-│   └── buildings/        Put building photos here
+│   ├── images.js         Which image file each building / upgrade type uses (SSC.images)
+│   ├── README.md         Image credits and licenses, and how to change an image
+│   ├── isu-leaf.svg      Small ISU leaf icon (prices, achievements)
+│   ├── isu-leaf-gold.svg Gold version for earned achievements
+│   ├── buildings/        One 320×320 picture per building
+│   └── upgrades/         Pictures for click, study and campus-wide upgrades
 ├── tests/
 │   └── engine.test.js    Unit tests (Node built-in test runner)
 ├── docs/                 Project documentation
@@ -65,6 +68,17 @@ All progress lives in one plain object created by `engine.newState()`:
 
 Only ids and numbers are stored. Names, prices and effects always come from `data.js`, so content can
 be rebalanced without breaking old saves.
+
+## Images
+
+`images/images.js` maps keys to files: one key per building id, plus `click`, `clickPct` and `global`
+for upgrades that are not tied to a building (building upgrades reuse their building's picture).
+`loadImages()` in `js/game.js` loads each listed file; when it loads, that picture replaces the emoji
+in the store, tooltips and campus view. Unlisted or missing files fall back to the emoji.
+
+The leaf shape (`#leaf-shape` in `index.html`) is the sycamore leaf traced from the ISU logo. It is
+reused through SVG `<use>` for the big leaf, the top-bar logo, falling leaves and golden leaves; its
+colors come from the CSS custom properties `--leaf-fill`, `--leaf-edge` and `--leaf-vein`.
 
 ## Core rules (`js/engine.js`)
 
@@ -104,8 +118,9 @@ upgrade and achievement ids are dropped, and duplicates are removed.
 ## Making changes
 
 - **Add a building:** add an entry to `buildings` in `js/data.js` (keep `baseCost` increasing). Its
-  8 tier upgrades and 2 achievements are generated automatically. Optionally add an image key in
-  `images/images.js`.
+  8 tier upgrades and 2 achievements are generated automatically. Add its picture in
+  `images/buildings/`, an entry in `images/images.js`, and a credit in `images/README.md`. The
+  `icon` emoji is only used if no picture is listed.
 - **Add an upgrade:** push an object with `id`, `type` (`building`, `click`, `clickPct`, `global`),
   `value`, `cost`, `req`, `name`, `icon`, `desc`.
 - **Change colors:** edit the variables at the top of `css/style.css`.

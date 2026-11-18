@@ -39,6 +39,23 @@ empty public repository named `sycamore-sam-clicker` on github.com.
 
 The AI pushed the project to <https://github.com/JTRIII/sycamore-sam-clicker> and added the link to the documentation.
 
+### Prompt 4 (user)
+
+> Could you please find pictures from the internet to use? I would like for them to not be emojis if
+> possible. I think we can use the photos as long as we credit them in the README images file
+
+The AI searched Wikimedia Commons and Openverse for public domain and openly licensed images,
+downloaded 15 images plus the ISU logo, cropped the photos to 320 × 320 squares, traced the leaf from
+the ISU logo for the clickable leaf, replaced the remaining emoji icons, and credited every image in
+`images/README.md`. Choices it made:
+
+- Used only public domain and openly licensed (CC BY, CC BY-SA, "attribution") images, because a
+  credit alone does not give permission to use an all-rights-reserved photo.
+- No openly licensed photo of Sycamore Sam was found, so Sycamore Sam uses the Sycamores athletics
+  logo.
+- The only Larry Bird statue photo available was of a different monument in Boston, so the building
+  was renamed **Larry Bird Legacy** and uses Larry Bird's 1977 ISU yearbook photo.
+
 ## Decisions made
 
 Decisions made by the user (in the specification):
@@ -55,12 +72,12 @@ Decisions made by the AI where the specification left room (the user can change 
 | Buildings | 12 ISU-themed producers, from Sycamore Sapling (15 leaves) to Sycamore Alumni Network | Places and people named in or suggested by the spec |
 | Extra mechanics | Upgrades, achievements (+1% each), golden leaves, offline earnings (50%, up to 8 h), buy x1/x10/x100, stats, news ticker | Standard features of the genre that make an endless game rewarding |
 | Look | Three-column layout, Sycamore Blue (#00669A), navy and white, a leaf drawn in SVG, original art and text | Genre-style look in ISU colors without copying another game's artwork |
-| Images | Emoji icons by default; real ISU photos and logos can be listed in `images/images.js` | ISU logos and photos are owned by the university and photographers, so the AI did not download them without the user's permission |
+| Images | At first emoji icons; after Prompt 4, openly licensed ISU photos from Wikimedia Commons, credited in `images/README.md` | The AI waited for the user's permission before downloading anything, and picked only images whose licenses allow reuse |
 | GitHub | Local Git repository; pushed to a public GitHub repository after the user approved and created it | Publishing to GitHub is an outward-facing action, and users need public access to download the game |
 | Tests | Node's built-in test runner, no packages | Keeps the project dependency-free |
 
 ## Open items for the user
 
-- Add real ISU images (see `images/README.md`) or ask the AI to find openly licensed ones.
+- Done: real ISU images were added (Prompt 4).
 - Done: the user created the empty GitHub repository, and the AI pushed the project to it
   (see Prompts 2 and 3 above).

@@ -26,7 +26,7 @@ No installation, build step or internet connection is needed. See [docs/INSTALLA
 - **Export save** downloads a `.json` save file; **Import save** loads it to pick up where you left off.
 - Offline progress: 50% of production while away, up to 8 hours.
 - Indiana State colors (Sycamore Blue and white), a news ticker, and layouts for desktop and phone.
-- Real ISU photos can be added in `images/` (see [images/README.md](images/README.md)).
+- Real ISU photos and logos for every building and upgrade, credited in [images/README.md](images/README.md).
 
 ## Documentation
 
@@ -42,4 +42,5 @@ No installation, build step or internet connection is needed. See [docs/INSTALLA
 ## Disclaimer
 
 A student project for a course. It is not affiliated with or endorsed by Indiana State University.
-Indiana State University names, logos and images belong to the university.
+Indiana State University names and logos are trademarks of the university. Photo credits and licenses are in
+[images/README.md](images/README.md).

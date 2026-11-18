@@ -156,9 +156,10 @@ img.icon { object-fit: cover; border-radius: 4px; }
 .ach { border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; padding: 6px 8px; font-size: 0.82rem; background: rgba(255,255,255,0.05); }
 .ach strong { display: block; font-size: 0.88rem; }
 .ach.locked { opacity: 0.45; }
-.ach.locked strong::before { content: "🔒 "; }
+.ach strong::before { content: ""; display: inline-block; width: 1em; height: 1em; margin-right: 5px; vertical-align: -0.12em; background: url(../images/isu-leaf.svg) center / contain no-repeat; }
+.ach.locked strong::before { filter: grayscale(1); }
 .ach.earned { border-color: var(--gold); background: rgba(242,194,48,0.12); }
-.ach.earned strong::before { content: "🏆 "; }
+.ach.earned strong::before { background-image: url(../images/isu-leaf-gold.svg); }
 
 /* ---------- store column ---------- */
 .store-title {
@@ -194,7 +195,8 @@ img.icon { object-fit: cover; border-radius: 4px; }
 .building .icon { width: 48px; height: 48px; font-size: 2rem; }
 .building .name { font-family: var(--display); font-size: 1.1rem; font-weight: bold; display: block; }
 .building .price { font-size: 0.9rem; }
-.building .price::before { content: "🍃 "; }
+.building .price::before { content: ""; display: inline-block; width: 0.95em; height: 0.95em; margin-right: 4px; vertical-align: -0.1em; background: url(../images/isu-leaf.svg) center / contain no-repeat; }
+.leaf-mini { width: 1em; height: 1em; vertical-align: -0.12em; }
 .building .owned { font-size: 2rem; font-weight: bold; opacity: 0.55; font-family: var(--display); }
 .building.cant-buy .price { color: var(--bad); }
 .building.can-buy .price { color: var(--good); }

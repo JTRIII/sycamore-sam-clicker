@@ -10,10 +10,11 @@ lists what the AI did on the development computer and which permissions were use
 | Read files | The specification `.docx` in Downloads; listing the course folder | Read only |
 | Write files | Creating every file in `Sycamore Sam Clicker/`, and `.claude/launch.json` in the course folder (local preview server settings) | Course folder only |
 | Run shell commands | Commands listed below | Local only |
+| Internet (read and download) | Searching Wikimedia Commons and Openverse; downloading the chosen images (approved by the user in Prompt 4) | commons.wikimedia.org, upload.wikimedia.org, api.openverse.org |
 | GitHub over SSH | Pushing to `JTRIII/sycamore-sam-clicker`, using the SSH key already set up on the computer | Approved by the user in chat |
 | Built-in browser | Loading the game from `http://localhost:8602`, screenshots, clicking, running test scripts in the page, resizing to desktop and phone sizes | Local game only |
 
-Not used: no downloads, no packages installed, no system
+Not used: no packages installed, no system
 settings changed, no files outside the course folder changed (a temporary copy of the `.docx` was
 placed in the AI's own scratch folder for reading).
 
@@ -36,6 +37,15 @@ placed in the AI's own scratch folder for reading).
 | 13 | `which gh`, `gh auth status`, `which brew port`, `git config --global credential.helper`, `ls ~/.ssh`, `ssh -T git@github.com` | Check how the computer can reach GitHub (GitHub CLI not installed; SSH key works) |
 | 14 | `git ls-remote`, `git remote add origin git@github.com:JTRIII/sycamore-sam-clicker.git`, `git push -u origin main` | Push the project to the repository the user created (after the user approved) |
 | 15 | `git commit`, `git push` | Add the repository link to the documentation |
+| 16 | `curl` to the Wikimedia Commons API (search, category listing, image license info) through small Python helper scripts in the AI's scratch folder | Find openly licensed ISU images and their licenses |
+| 17 | `curl` to the Openverse API | Look for a Sycamore Sam photo (none openly licensed) |
+| 18 | `curl` downloads from upload.wikimedia.org / thumb.wikimedia.org into the scratch folder | Preview and final images |
+| 19 | `magick montage` | Contact sheets to compare candidates visually |
+| 20 | Python script splitting the ISU logo SVG path; `magick` render | Trace the leaf out of the ISU logo |
+| 21 | `grep` on the downloaded SVG | Check it contains no scripts or links |
+| 22 | `magick ... -resize 320x320^ -extent 320x320` | Crop photos into `images/buildings/` and `images/upgrades/` |
+| 23 | Python edits to `index.html`, `js/game.js`, `js/data.js`, `css/style.css`, docs; `node --test tests/` | Use the images and leaf; update docs; re-run tests |
+| 24 | `git add`, `git commit`, `git push` | Publish the image update |
 
 Files were also created and edited with the AI tool's file-writing feature (not shell commands).
 
@@ -47,5 +57,4 @@ Stats panel, and took screenshots at 1400×850 and 375×812. All actions were on
 
 ## Human review
 
-The user should review the code and documents before submitting, add real ISU images that they have
-permission to use, and keep the GitHub repository up to date with `git push` after future changes.
+The user should review the code, documents and image credits before submitting, and keep the GitHub repository up to date with `git push` after future changes.

@@ -66,7 +66,7 @@
   }
 
   function upgradeIcon(u) {
-    return u.type === 'building' ? iconFor(u.target, u.icon) : iconFor('_none', u.icon);
+    return u.type === 'building' ? iconFor(u.target, u.icon) : iconFor(u.type, u.icon);
   }
 
   // ------------------------------------------------------------------ saving
@@ -175,7 +175,7 @@
       : b.baseCps * engine.buildingMult(state, b.id) * engine.globalMult(state);
     const total = engine.buildingCps(state, b.id);
     const share = engine.baseCps(state) ? (100 * total / engine.baseCps(state)).toFixed(1) : '0';
-    return '<div class="tt-head"><span>' + escapeHtml(b.name) + '</span><span class="tt-cost' + (state.leaves >= cost ? '' : ' no') + '">🍃 ' + fmt(cost) + '</span></div>'
+    return '<div class="tt-head"><span>' + escapeHtml(b.name) + '</span><span class="tt-cost' + (state.leaves >= cost ? '' : ' no') + '"><img class="leaf-mini" src="images/isu-leaf.svg" alt="leaves"> ' + fmt(cost) + '</span></div>'
       + '<div class="tt-tag">owned: ' + owned + (buyAmount > 1 ? ' · buying ' + buyAmount : '') + '</div>'
       + '<p class="tt-flavor">' + escapeHtml(b.desc) + '</p>'
       + '<p>Each produces <b>' + fmt(each, 1) + '</b> leaves per second.'
@@ -184,7 +184,7 @@
 
   function upgradeTooltip(u) {
     const can = state.leaves >= u.cost;
-    return '<div class="tt-head"><span>' + escapeHtml(u.name) + '</span><span class="tt-cost' + (can ? '' : ' no') + '">🍃 ' + fmt(u.cost) + '</span></div>'
+    return '<div class="tt-head"><span>' + escapeHtml(u.name) + '</span><span class="tt-cost' + (can ? '' : ' no') + '"><img class="leaf-mini" src="images/isu-leaf.svg" alt="leaves"> ' + fmt(u.cost) + '</span></div>'
       + '<div class="tt-tag">upgrade</div><p>' + escapeHtml(u.desc) + '</p>';
   }
 
