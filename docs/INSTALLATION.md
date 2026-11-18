@@ -7,6 +7,11 @@ Sycamore Sam Clicker is a set of static files. There is nothing to install or co
 - A modern web browser: Chrome, Edge, Firefox or Safari (desktop or phone).
 - No internet connection, server or plug-ins are needed.
 
+## Option 0: play online (no download)
+
+Open <https://jtriii.github.io/sycamore-sam-clicker/> in any browser. The game is hosted on GitHub Pages and works on computers and
+phones. Progress is saved in that browser, the same as the downloaded version.
+
 ## Option 1: download a ZIP from GitHub
 
 1. Open the project's GitHub page: <https://github.com/JTRIII/sycamore-sam-clicker>

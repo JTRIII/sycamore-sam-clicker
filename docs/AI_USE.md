@@ -46,6 +46,10 @@ placed in the AI's own scratch folder for reading).
 | 22 | `magick ... -resize 320x320^ -extent 320x320` | Crop photos into `images/buildings/` and `images/upgrades/` |
 | 23 | Python edits to `index.html`, `js/game.js`, `js/data.js`, `css/style.css`, docs; `node --test tests/` | Use the images and leaf; update docs; re-run tests |
 | 24 | `git add`, `git commit`, `git push` | Publish the image update |
+| 25 | `curl` to api.github.com (public repo info, no login) and to the Pages URL | Check the repository is public and when the site is live |
+| 26 | `touch .nojekyll`, `git commit`, `git push` | Have GitHub Pages serve the files as-is |
+| 27 | Built-in browser: opened the repository's Pages settings (not signed in, so nothing changed), then played the live site | Verify the GitHub Pages deployment |
+| 28 | `git commit`, `git push` | Add the play-online link to the documentation |
 
 Files were also created and edited with the AI tool's file-writing feature (not shell commands).
 

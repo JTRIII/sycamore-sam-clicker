@@ -56,6 +56,22 @@ the ISU logo for the clickable leaf, replaced the remaining emoji icons, and cre
 - The only Larry Bird statue photo available was of a different monument in Boston, so the building
   was renamed **Larry Bird Legacy** and uses Larry Bird's 1977 ISU yearbook photo.
 
+### Prompts 5–7 (user)
+
+> Are there any recommendations you have to improve the game?
+
+The AI suggested, in order: hosting on GitHub Pages, a prestige ("Graduate") reset, a settings panel
+with sound, press-and-hold tooltips on phones, more content and balancing, the user's own photos of
+Sycamore Sam and the Larry Bird statue, and testing in more browsers.
+
+> Set up GitHub Pages
+
+> Done, check it
+
+Turning on Pages needs the user's GitHub login, so the user switched it on in the repository settings
+(Deploy from a branch: main, root). The AI added a `.nojekyll` file, confirmed the live site works,
+and added the play link (<https://jtriii.github.io/sycamore-sam-clicker/>) to the documentation.
+
 ## Decisions made
 
 Decisions made by the user (in the specification):

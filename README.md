@@ -7,7 +7,11 @@ end.
 
 Author: James Roberts (AI 602 – Prompt Engineering Theory and Application, Topic 10 – Coding)
 
-## Quick start
+## Play online
+
+**[Play Sycamore Sam Clicker](https://jtriii.github.io/sycamore-sam-clicker/)** in any browser, on a computer or phone.
+
+## Quick start (offline copy)
 
 1. Download or clone this repository: <https://github.com/JTRIII/sycamore-sam-clicker>
    (green **Code** button → **Download ZIP**).
