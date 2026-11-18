@@ -56,6 +56,8 @@ placed in the AI's own scratch folder for reading).
 | 32 | Python edits to `js/data.js`, `js/engine.js`, `js/game.js`, `index.html`, `tests/engine.test.js` and docs; `cat >> css/style.css` | Build the new features |
 | 33 | Built-in browser at `http://localhost:8602` (desktop and phone sizes): clicks, page scripts, simulated touch events, screenshots | Test the new features |
 | 34 | `git add`, `git commit`, `git push` | Publish the update (GitHub Pages republishes automatically) |
+| 35 | Edit `js/audio.js`; browser `OfflineAudioContext` script rendering the old and new click sounds | Replace the click sound and measure its loudness |
+| 36 | `git commit`, `git push` | Publish the quieter click sound |
 
 Files were also created and edited with the AI tool's file-writing feature (not shell commands).
 

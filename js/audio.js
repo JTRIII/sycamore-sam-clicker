@@ -38,26 +38,31 @@
     osc.stop(start + dur + 0.02);
   }
 
-  /** Short filtered noise burst: a leaf rustle. */
-  function rustle(start) {
-    const len = Math.floor(ctx.sampleRate * 0.07);
-    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
-    const ch = buf.getChannelData(0);
-    for (let i = 0; i < len; i++) ch[i] = (Math.random() * 2 - 1) * (1 - i / len);
-    const src = ctx.createBufferSource();
-    src.buffer = buf;
-    const filter = ctx.createBiquadFilter();
-    filter.type = 'bandpass';
-    filter.frequency.value = 2500 + Math.random() * 1500;
-    filter.Q.value = 0.8;
+  /**
+   * Soft "pop" for clicking the leaf: a short sine blip that slides down in
+   * pitch, with a slightly different pitch each time so rapid clicks don't
+   * sound identical. Much quieter than the other sounds because it plays so often.
+   */
+  function pop(start) {
+    const osc = ctx.createOscillator();
     const g = ctx.createGain();
-    g.gain.value = 0.5;
-    src.connect(filter).connect(g).connect(master);
-    src.start(start);
+    const filter = ctx.createBiquadFilter();
+    const f0 = 430 * (0.9 + Math.random() * 0.2);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(f0, start);
+    osc.frequency.exponentialRampToValueAtTime(f0 * 0.45, start + 0.06);
+    filter.type = 'lowpass';
+    filter.frequency.value = 1200;
+    g.gain.setValueAtTime(0.0001, start);
+    g.gain.exponentialRampToValueAtTime(0.09, start + 0.005);
+    g.gain.exponentialRampToValueAtTime(0.0001, start + 0.08);
+    osc.connect(filter).connect(g).connect(master);
+    osc.start(start);
+    osc.stop(start + 0.1);
   }
 
   const sounds = {
-    click(t) { rustle(t); },
+    click(t) { pop(t); },
     buy(t) { tone(660, t, 0.08, 'triangle', 0.18); tone(990, t + 0.06, 0.1, 'triangle', 0.15); },
     sell(t) { tone(700, t, 0.08, 'triangle', 0.15); tone(470, t + 0.06, 0.12, 'triangle', 0.13); },
     upgrade(t) { [523, 659, 784].forEach((f, i) => tone(f, t + i * 0.06, 0.14, 'triangle', 0.15)); },

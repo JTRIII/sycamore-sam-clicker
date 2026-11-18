@@ -161,6 +161,7 @@ the genre; graduating speeds up later runs.
 | --- | --- | --- |
 | 7 | Graduating was not worth it (see the balance table above). | Rebalanced Alumni Pride and campus-wide upgrades. |
 | 8 | Some messages still said Alumni Pride was "+1%" per point after the rebalance. | All texts now calculate the percentage from `PRIDE_BONUS`. |
+| 9 | User feedback: the leaf click sound (a burst of filtered noise) was too loud and annoying. | Replaced with a soft, short "pop" (a sine tone sliding down in pitch, slightly different each click). Measured by rendering both sounds offline in the browser: 12.5 dB quieter on average (−31.1 → −43.6 dB RMS, peak 0.17 → 0.05) and much less harsh (high-frequency content about 14× lower). |
 
 ### Not tested
 

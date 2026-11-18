@@ -12,7 +12,7 @@ The code is split into three layers:
 | --- | --- | --- |
 | Content | `js/data.js` | Buildings, upgrades, achievements, news lines (plain data) |
 | Engine | `js/engine.js` | Game rules: prices, production, purchases, selling, graduation, saves. No DOM access. |
-| Sound | `js/audio.js` | Sound effects generated with the Web Audio API (no audio files) |
+| Sound | `js/audio.js` | Sound effects generated with the Web Audio API (no audio files); the leaf click is a quiet "pop" |
 | UI | `js/game.js` | Rendering, input, game loop, settings, autosave, export/import |
 
 Keeping the engine free of DOM code means it can be unit tested in Node (`tests/engine.test.js`).

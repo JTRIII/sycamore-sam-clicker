@@ -89,6 +89,14 @@ a balance simulation (and a rebalance based on it), and more news lines. Choices
 - Not done, because they need the user: taking new photos of Sycamore Sam and the Larry Bird statue,
   and testing in Safari and Firefox.
 
+### Prompt 9 (user)
+
+> Could you please change the sound of clicking the leaf? It is very loud and annoying. It would be
+> nice if it was quieter, a different sound, and similar to clicking a cookie like on cookie clicker.
+
+The AI replaced the noisy "rustle" with a soft, short pop in the style of classic clicker games,
+generated in code (not copied from any game), and measured it to be 12.5 dB quieter.
+
 ## Decisions made
 
 Decisions made by the user (in the specification):
