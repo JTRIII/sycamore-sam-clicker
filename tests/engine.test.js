@@ -90,10 +90,10 @@ test('click upgrades double the click and clickPct adds a share of cps', () => {
 test('global upgrades and achievements boost production', () => {
   const s = fresh();
   s.buildings.sam = 10;
-  s.upgrades.push('global1'); // +5%
-  assert.ok(Math.abs(E.cps(s, NOW) - 10.5) < 1e-9);
+  s.upgrades.push('global1'); // +10%
+  assert.ok(Math.abs(E.cps(s, NOW) - 11) < 1e-9);
   s.achievements.push('earn1', 'earn2'); // +2%
-  assert.ok(Math.abs(E.cps(s, NOW) - 10.5 * 1.02) < 1e-9);
+  assert.ok(Math.abs(E.cps(s, NOW) - 11 * 1.02) < 1e-9);
 });
 
 test('achievements are awarded once', () => {
@@ -112,14 +112,14 @@ test('golden leaf frenzy multiplies production for 77 seconds', () => {
   assert.equal(E.cps(s, NOW + 1000), 7);
   assert.equal(E.cps(s, NOW + 78 * 1000), 1);
   E.tick(s, 1, NOW + 78 * 1000);
-  assert.equal(s.buff, null);
+  assert.deepEqual(s.buffs, []);
 });
 
 test('golden leaf lucky reward is capped by bank and production', () => {
   const s = fresh();
   s.leaves = 1e6;
   s.buildings.sam = 1; // 1/s -> cap 900
-  const r = E.goldenLeaf(s, 0.9, NOW);
+  const r = E.goldenLeaf(s, 0.6, NOW);
   assert.equal(r.type, 'lucky');
   assert.equal(r.amount, 913);
   assert.equal(s.goldenClicks, 1);
@@ -139,6 +139,10 @@ test('save files round-trip', () => {
   const s = fresh();
   s.leaves = 1234.5;
   s.totalEarned = 99999;
+  s.allTimeEarned = 8e12;
+  s.pride = 2;
+  s.graduations = 1;
+  s.sold = 4;
   s.clicks = 42;
   s.buildings.fountain = 3;
   s.upgrades.push('click1');
@@ -152,6 +156,10 @@ test('save files round-trip', () => {
   assert.deepEqual(back.upgrades, ['click1']);
   assert.deepEqual(back.achievements, ['earn1']);
   assert.equal(back.savedAt, NOW + 5);
+  assert.equal(back.allTimeEarned, 8e12);
+  assert.equal(back.pride, 2);
+  assert.equal(back.graduations, 1);
+  assert.equal(back.sold, 4);
 });
 
 test('bad or tampered save files are rejected or cleaned', () => {
@@ -200,4 +208,120 @@ test('content data is consistent', () => {
   for (let i = 1; i < D.buildings.length; i++) {
     assert.ok(D.buildings[i].baseCost > D.buildings[i - 1].baseCost);
   }
+});
+
+test('golden leaf Blue Crew Roar multiplies clicks for 13 seconds, alongside a frenzy', () => {
+  const s = fresh();
+  s.buildings.sam = 1;
+  E.goldenLeaf(s, 0.1, NOW); // frenzy x7 production
+  const r = E.goldenLeaf(s, 0.95, NOW); // click frenzy x77
+  assert.equal(r.type, 'clickFrenzy');
+  assert.equal(s.buffs.length, 2);
+  assert.equal(E.clickValue(s, NOW + 1000), 77);
+  assert.equal(E.cps(s, NOW + 1000), 7);
+  assert.equal(E.clickValue(s, NOW + 14 * 1000), 1, 'click frenzy over after 13 s');
+  assert.equal(E.cps(s, NOW + 14 * 1000), 7, 'production frenzy still running');
+});
+
+test('selling refunds 25% of the price and never more than owned', () => {
+  const s = fresh();
+  s.leaves = 0;
+  s.buildings.sam = 3;
+  const expected = Math.floor(E.priceOf(100, 2) * 0.25) + Math.floor(E.priceOf(100, 1) * 0.25) + Math.floor(E.priceOf(100, 0) * 0.25);
+  assert.equal(E.sellValue(s, 'sam', 10), expected);
+  assert.equal(E.sellBuilding(s, 'sam', 10), expected);
+  assert.equal(s.buildings.sam, 0);
+  assert.equal(s.leaves, expected);
+  assert.equal(s.totalEarned, 0, 'refunds are not earnings');
+  assert.equal(s.sold, 3);
+  assert.equal(E.sellBuilding(s, 'sam', 1), 0, 'nothing left to sell');
+  assert.ok(E.checkAchievements(s).some((a) => a.id === 'sell1'));
+});
+
+test('buy then sell never makes a profit', () => {
+  const s = fresh();
+  s.leaves = 1e9;
+  for (const b of D.buildings.slice(0, 6)) {
+    const before = s.leaves;
+    assert.ok(E.buyBuilding(s, b.id, 10));
+    E.sellBuilding(s, b.id, 10);
+    assert.ok(s.leaves < before, b.id);
+  }
+});
+
+test('synergy upgrades appear at 15 of both buildings and scale with the source count', () => {
+  const s = fresh();
+  s.buildings.sapling = 15;
+  s.buildings.sam = 14;
+  assert.ok(!E.availableUpgrades(s).some((u) => u.id === 'syn_sam_sapling'));
+  s.buildings.sam = 20;
+  assert.ok(E.availableUpgrades(s).some((u) => u.id === 'syn_sam_sapling'));
+  const before = E.buildingCps(s, 'sapling');
+  s.upgrades.push('syn_sam_sapling'); // +5% per Sycamore Sam
+  assert.ok(Math.abs(E.buildingCps(s, 'sapling') - before * 2) < 1e-9, '20 Sams x 5% = +100%');
+});
+
+test('graduating converts all-time leaves into Alumni Pride and starts a new run', () => {
+  const s = fresh();
+  E.earn(s, 1e9 - 1);
+  assert.equal(E.pendingPride(s), 0);
+  assert.equal(E.graduate(s, NOW), 0, 'cannot graduate without pride to gain');
+  E.earn(s, 7e9 + 1); // 8e9 all time -> cbrt(8) = 2
+  s.buildings.sam = 50;
+  s.upgrades.push('click1');
+  s.achievements.push('earn1');
+  assert.equal(E.pendingPride(s), 2);
+  assert.equal(E.nextPrideAt(s), 27e9);
+  assert.equal(E.graduate(s, NOW + 1), 2);
+  assert.equal(s.pride, 2);
+  assert.equal(s.graduations, 1);
+  assert.equal(s.leaves, 0);
+  assert.equal(s.totalEarned, 0);
+  assert.equal(s.allTimeEarned, 8e9, 'all-time total kept');
+  assert.equal(s.buildings.sam, 0);
+  assert.deepEqual(s.upgrades, []);
+  assert.deepEqual(s.achievements, ['earn1'], 'achievements kept');
+  assert.equal(s.runStartedAt, NOW + 1);
+  assert.equal(E.pendingPride(s), 0, 'no double counting');
+  s.buildings.sam = 10;
+  assert.ok(Math.abs(E.cps(s, NOW) - 10 * 1.01 * 1.04) < 1e-9, '+1% per achievement and +2% per pride');
+});
+
+test('upgrade unlocks use this run, achievements use all time', () => {
+  const s = fresh();
+  s.allTimeEarned = 1e9;
+  assert.ok(!E.availableUpgrades(s).some((u) => u.id === 'global1'), 'Welcome Week needs 50,000 this run');
+  assert.ok(E.checkAchievements(s).some((a) => a.id === 'earn5'), 'billion all time counts for achievements');
+  assert.equal(E.pendingPride(s), 1, 'first Alumni Pride at 1 billion all time');
+});
+
+test('version 1 saves load: buff becomes buffs, all-time total is filled in', () => {
+  const v1 = JSON.stringify({
+    game: 'sycamore-sam-clicker', version: 1,
+    state: {
+      leaves: 10, totalEarned: 5000, clicks: 3, buildings: { sam: 2 }, upgrades: [], achievements: [],
+      buff: { name: 'Homecoming Frenzy', mult: 7, endsAt: NOW + 5000 }, startedAt: NOW - 1000, savedAt: NOW,
+    },
+  });
+  const s = E.deserialize(v1, NOW);
+  assert.equal(s.allTimeEarned, 5000);
+  assert.equal(s.pride, 0);
+  assert.equal(s.runStartedAt, NOW - 1000);
+  assert.equal(s.buffs.length, 1);
+  assert.equal(s.buffs[0].kind, 'cps');
+  assert.equal(E.cps(s, NOW), 14);
+});
+
+test('tampered pride is capped by all-time earnings', () => {
+  const save = JSON.stringify({ game: 'sycamore-sam-clicker', version: 2,
+    state: { allTimeEarned: 8e12, pride: 999999, buffs: [{ name: 'x', kind: 'click', mult: 77, endsAt: NOW - 1 }] } });
+  const s = E.deserialize(save, NOW);
+  assert.equal(s.pride, 20, 'cbrt(8e12 / 1e9) = 20');
+  assert.deepEqual(s.buffs, [], 'expired buffs dropped');
+});
+
+test('short number format', () => {
+  assert.equal(E.formatNumber(1234567, 0, 'short'), '1.234M');
+  assert.equal(E.formatNumber(2.5e12, 0, 'short'), '2.500T');
+  assert.equal(E.formatNumber(999, 1, 'short'), '999');
 });

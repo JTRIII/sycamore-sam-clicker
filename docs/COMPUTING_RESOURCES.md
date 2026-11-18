@@ -20,6 +20,11 @@ Token usage for the session can be viewed in the Claude app's usage information.
 About 20 minutes of session time from the request for pictures to the pushed update: searching and
 comparing images, extracting the ISU leaf, editing code and documents, and testing.
 
+### New features (2026-11-18)
+
+About 35–45 minutes of session time to design and write the new features, tests, simulation and
+documentation, and to test in the browser.
+
 ## Development computer time (local)
 
 Development computer: Mac running macOS (Darwin 22.6.0), Node.js 20.17.0, Python 3.14.
@@ -32,6 +37,7 @@ Development computer: Mac running macOS (Darwin 22.6.0), Node.js 20.17.0, Python
 | Built-in browser: loading and playing the game, screenshots, page scripts | about 3 minutes in total |
 | File writes, `git` commands, line counts | < 5 s total |
 | Image update: about 40 small API requests and 45 image downloads (spaced out after Wikimedia rate-limited quick requests), ImageMagick crops and contact sheets, browser testing | about 5 minutes, mostly waiting on the network |
+| New features: two 24-hour balance simulations (about 50 s of CPU each), unit test runs (under 1 s each), browser testing | about 4 minutes |
 
 Total active work on the development computer was a few minutes; the game itself needs no build
 step and uses very little CPU while running.

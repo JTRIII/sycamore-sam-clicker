@@ -23,9 +23,13 @@ No installation, build step or internet connection is needed. See [docs/INSTALLA
 
 - One click of the leaf = 1 leaf. Upgrades make clicks stronger.
 - 12 buildings, each 15% more expensive than the last copy (price = base × 1.15^owned).
-- 110 upgrades: building doublers, click upgrades and campus-wide production boosts.
-- 42 achievements, each giving +1% production.
-- Golden Sycamore Leaves that appear every 2–5 minutes for a bonus (Lucky Leaf or Homecoming Frenzy).
+- 118 upgrades: building doublers, click upgrades, campus-wide boosts and synergies between buildings.
+- 68 achievements, each giving +1% production.
+- **Graduate** to start a new run with permanent Alumni Pride (+2% production per point).
+- **Sell** buildings for a 25% refund.
+- Golden Sycamore Leaves every 2–5 minutes: Lucky Leaf, Homecoming Frenzy or Blue Crew Roar.
+- Sound effects and a **Settings** panel (sound, volume, effects, news ticker, short numbers, backup reminders).
+- Works on phones: tap to buy, press and hold to see details.
 - Automatic save to the browser every minute, plus when the tab is closed or hidden.
 - **Export save** downloads a `.json` save file; **Import save** loads it to pick up where you left off.
 - Offline progress: 50% of production while away, up to 8 hours.

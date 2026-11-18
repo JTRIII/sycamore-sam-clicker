@@ -91,3 +91,81 @@ After real ISU photos replaced the emoji icons:
 The live site at <https://jtriii.github.io/sycamore-sam-clicker/> returned HTTP 200 for the page, scripts, styles and images. In the
 built-in browser, 20 clicks gave 20 leaves, a Sycamore Sapling could be bought, the browser save was
 written, and no images or requests failed.
+
+## 6. New features testing (2026-11-18)
+
+Features added: graduation (Alumni Pride), selling, synergy upgrades, a third golden-leaf effect,
+26 more achievements, settings and sound, press-and-hold tooltips on touch screens, campus photo
+rows, and backup reminders.
+
+### Unit tests
+
+`node --test tests/` now has **25 tests: 25 passed, 0 failed**. New or changed tests:
+
+| Test | What it checks |
+| --- | --- |
+| golden leaf Blue Crew Roar multiplies clicks for 13 seconds, alongside a frenzy | Two buffs at once; each expires on time |
+| selling refunds 25% of the price and never more than owned | Refund math, refunds not counted as earnings, "Change of Major" achievement |
+| buy then sell never makes a profit | No leaf-making exploit from buy/sell |
+| synergy upgrades appear at 15 of both buildings and scale with the source count | Unlock rule and +5% per source building |
+| graduating converts all-time leaves into Alumni Pride and starts a new run | Pride formula, what resets, what is kept, +2% per point |
+| upgrade unlocks use this run, achievements use all time | Upgrades do not all reappear after graduating |
+| version 1 saves load | Old saves (made before this update) still import |
+| tampered pride is capped by all-time earnings | Edited save files cannot grant free Alumni Pride |
+| short number format | "1.234M" style |
+
+The golden-leaf, global-upgrade and save round-trip tests were updated for the new odds, the stronger
+campus upgrades and the new save fields.
+
+### Balance simulation
+
+`node tools/simulate.js 24 3` lets a bot play for 24 simulated hours, clicking 3 times a second and
+always buying whatever pays for itself fastest (no golden leaves).
+
+| Milestone | Before rebalancing | After |
+| --- | --- | --- |
+| 1 million leaves | 24m 45s | 24m 42s |
+| First Memorial Stadium | 1h 19m | 1h 18m |
+| 1 billion leaves | 2h 13m | 2h 4m (first Alumni Pride) |
+| First Hulman Center | 3h 26m | 3h 17m |
+| First Larry Bird Legacy | 7h 51m | 6h 41m |
+| First Homecoming Parade | 13h 47m | 12h 2m |
+| 1 trillion leaves | 17h 18m (first Alumni Pride, worth +1%) | 13h 58m (10 Alumni Pride, +20%) |
+
+Finding: with the original numbers, the first Alumni Pride point took 17 hours and was worth only +1%,
+so graduating was pointless. Fix: Alumni Pride now starts at 1 billion leaves and gives +2% per point,
+and the six campus-wide upgrades were strengthened (+10% … +75% instead of +5% … +20%). The early game
+was not changed. The late game (Larry Bird Legacy onward) still takes many hours, which is normal for
+the genre; graduating speeds up later runs.
+
+### Browser testing
+
+| Check | Result |
+| --- | --- |
+| A version 1 save (written by the previous game version) loads in the new version | Pass |
+| Graduate button appears with the points available; the dialog shows the correct numbers | Pass |
+| Graduating: 100 Alumni Pride gained, leaves/buildings/upgrades reset, achievements kept, graduation achievements unlocked | Pass |
+| Sell mode shows refunds, sells, and unlocks "Change of Major" | Pass |
+| Settings panel: short numbers, news ticker off, settings kept after reload | Pass |
+| Phone size (375×812): "press and hold" hint shown; a long press shows the tooltip without buying; a normal tap buys | Pass |
+| Phone size: no sideways scrolling | Pass |
+| Blue Crew Roar: clicks worth ×77, shown in the buff bar | Pass |
+| Backup reminder toast with an "Export save" button | Pass (triggered with `SSC.game.testBackupReminder()`) |
+| Campus rows show the building photo behind the icons | Pass |
+| No script errors or failed requests in the console | Pass |
+| Sound effects run without errors | Pass, but **not heard**: the test browser has no speakers for the AI. Please listen to them yourself. |
+
+### Problems found and fixed
+
+| # | Problem | Fix |
+| --- | --- | --- |
+| 7 | Graduating was not worth it (see the balance table above). | Rebalanced Alumni Pride and campus-wide upgrades. |
+| 8 | Some messages still said Alumni Pride was "+1%" per point after the rebalance. | All texts now calculate the percentage from `PRIDE_BONUS`. |
+
+### Not tested
+
+- **Firefox and Safari:** only the Chromium-based built-in browser was used. Please open
+  <https://jtriii.github.io/sycamore-sam-clicker/> in Safari (Mac and iPhone) and Firefox and check
+  that the game loads, clicks, saves, and that the Graduate dialog opens.
+- A real touch screen (touch was simulated with pointer events).
+- Hearing the sound effects.

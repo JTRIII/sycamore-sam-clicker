@@ -50,6 +50,12 @@ placed in the AI's own scratch folder for reading).
 | 26 | `touch .nojekyll`, `git commit`, `git push` | Have GitHub Pages serve the files as-is |
 | 27 | Built-in browser: opened the repository's Pages settings (not signed in, so nothing changed), then played the live site | Verify the GitHub Pages deployment |
 | 28 | `git commit`, `git push` | Add the play-online link to the documentation |
+| 29 | `node -e ...` (load data and engine, print upgrade counts and costs) | Check the new content |
+| 30 | `node --test tests/` (several runs) | Unit tests: 25 passed |
+| 31 | `node tools/simulate.js 24 3` (twice, about 50 s each) | Balance simulation before and after rebalancing |
+| 32 | Python edits to `js/data.js`, `js/engine.js`, `js/game.js`, `index.html`, `tests/engine.test.js` and docs; `cat >> css/style.css` | Build the new features |
+| 33 | Built-in browser at `http://localhost:8602` (desktop and phone sizes): clicks, page scripts, simulated touch events, screenshots | Test the new features |
+| 34 | `git add`, `git commit`, `git push` | Publish the update (GitHub Pages republishes automatically) |
 
 Files were also created and edited with the AI tool's file-writing feature (not shell commands).
 

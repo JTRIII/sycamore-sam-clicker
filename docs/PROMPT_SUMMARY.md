@@ -72,6 +72,23 @@ Turning on Pages needs the user's GitHub login, so the user switched it on in th
 (Deploy from a branch: main, root). The AI added a `.nojekyll` file, confirmed the live site works,
 and added the play link (<https://jtriii.github.io/sycamore-sam-clicker/>) to the documentation.
 
+### Prompt 8 (user)
+
+> Looks good! I would like for you to implement the other things you suggested to the game
+
+The AI added: graduation with Alumni Pride, selling buildings, eight synergy upgrades, a third golden
+leaf effect (Blue Crew Roar), 26 more achievements, a Settings panel, generated sound effects,
+press-and-hold tooltips for touch screens, building photos behind the campus rows, a backup reminder,
+a balance simulation (and a rebalance based on it), and more news lines. Choices it made:
+
+- Sounds are generated in code (Web Audio) rather than downloaded, so there are no audio files to
+  license.
+- Selling refunds 25%, and settings are stored separately from save files, both as in the genre.
+- Alumni Pride: first point at 1 billion all-time leaves, +2% production each, after the simulation
+  showed the original numbers made graduating pointless.
+- Not done, because they need the user: taking new photos of Sycamore Sam and the Larry Bird statue,
+  and testing in Safari and Firefox.
+
 ## Decisions made
 
 Decisions made by the user (in the specification):

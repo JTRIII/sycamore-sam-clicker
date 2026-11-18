@@ -18,6 +18,8 @@
       <button id="btnExport" type="button" title="Download your save as a file">Export save</button>
       <button id="btnImport" type="button" title="Load a save file">Import save</button>
       <button id="btnStats" type="button" aria-pressed="false">Stats</button>
+      <button id="btnSettings" type="button" aria-pressed="false">Settings</button>
+      <button id="btnGraduate" type="button" class="graduate" hidden title="Start over with permanent Alumni Pride">Graduate</button>
       <button id="btnReset" type="button" class="danger">Reset</button>
     </nav>
     <span id="saveStatus" class="save-status" aria-live="polite"></span>
@@ -43,9 +45,24 @@
       <div id="statsPanel" class="stats-panel" hidden>
         <h2>Statistics</h2>
         <dl id="statsList" class="stats-list"></dl>
+        <h2>Graduation</h2>
+        <div id="gradInfo" class="grad-info"></div>
         <h2>Achievements <span id="achCount"></span></h2>
         <p class="hint">Each achievement boosts all production by 1%.</p>
         <div id="achList" class="ach-list"></div>
+      </div>
+      <div id="settingsPanel" class="stats-panel settings-panel" hidden>
+        <h2>Settings</h2>
+        <p class="hint">Settings are saved in this browser and are not part of save files.</p>
+        <div class="setting-list">
+          <label class="setting"><input type="checkbox" data-setting="sound"> <span>Sound effects</span></label>
+          <label class="setting setting-range"><span>Volume</span> <input type="range" min="0" max="100" step="5" data-setting="volume" aria-label="Volume"></label>
+          <label class="setting"><input type="checkbox" data-setting="fallingLeaves"> <span>Falling leaves when clicking</span></label>
+          <label class="setting"><input type="checkbox" data-setting="floatingText"> <span>Floating numbers when clicking</span></label>
+          <label class="setting"><input type="checkbox" data-setting="news"> <span>News ticker</span></label>
+          <label class="setting"><input type="checkbox" data-setting="shortNumbers"> <span>Short numbers (1.5M instead of 1.500 million)</span></label>
+          <label class="setting"><input type="checkbox" data-setting="backupReminder"> <span>Remind me to export a backup every 30 minutes</span></label>
+        </div>
       </div>
     </section>
 
@@ -54,18 +71,38 @@
       <div id="upgrades" class="upgrades"></div>
       <div class="store-head">
         <h2 class="store-title">Buildings</h2>
-        <div class="buy-amount" role="group" aria-label="Buy amount">
+        <div class="buy-amount mode" role="group" aria-label="Buy or sell">
+          <button type="button" data-mode="buy" class="active">Buy</button>
+          <button type="button" data-mode="sell">Sell</button>
+        </div>
+        <div class="buy-amount amounts" role="group" aria-label="Amount">
           <button type="button" data-amount="1" class="active">x1</button>
           <button type="button" data-amount="10">x10</button>
           <button type="button" data-amount="100">x100</button>
         </div>
       </div>
+      <p id="touchHint" class="touch-hint" hidden>Tip: press and hold an item to see what it does.</p>
       <div id="buildings" class="buildings"></div>
     </section>
   </main>
 
   <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
   <div id="toasts" class="toasts" aria-live="polite"></div>
+  <dialog id="graduateDialog" class="dialog">
+    <form method="dialog">
+      <h2>Graduate?</h2>
+      <p id="gradDialogText"></p>
+      <ul class="dialog-list">
+        <li><strong>You keep:</strong> achievements, Alumni Pride and all-time statistics.</li>
+        <li><strong>You start over:</strong> leaves, buildings and upgrades.</li>
+        <li>Each Alumni Pride point permanently adds +2% to all production.</li>
+      </ul>
+      <div class="dialog-buttons">
+        <button value="cancel" type="submit">Not yet</button>
+        <button value="confirm" type="submit" class="graduate">Graduate</button>
+      </div>
+    </form>
+  </dialog>
   <input id="importFile" type="file" accept=".json,application/json" hidden>
 
   <!-- Sycamore leaf used for the clicker, logo, falling leaves and golden leaf.
@@ -93,6 +130,7 @@
 
   <script src="images/images.js"></script>
   <script src="js/data.js"></script>
+  <script src="js/audio.js"></script>
   <script src="js/engine.js"></script>
   <script src="js/game.js"></script>
 </body>

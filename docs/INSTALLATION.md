@@ -44,9 +44,23 @@ Then visit <http://localhost:8602>.
 - Buy buildings in the **Buildings** store on the right. They earn leaves every second.
   Use **x1 / x10 / x100** to buy several at once.
 - Buy **Upgrades** (the square icons) to double building output, strengthen clicks, or boost everything.
-- Hover over (or tab to) any store item to see what it does and what it costs.
-- When a **Golden Sycamore Leaf** floats onto the screen, click it before it fades for a bonus.
-- **Stats** shows your statistics and achievements.
+- Hover over (or tab to) any store item to see what it does and what it costs. On a phone or tablet,
+  **press and hold** an item to see its details; a normal tap buys it.
+- Switch the store to **Sell** to sell buildings back for 25% of their price.
+- When a **Golden Sycamore Leaf** floats onto the screen, click it before it fades. It gives one of:
+  *Lucky Leaf* (a pile of leaves), *Homecoming Frenzy* (production ×7 for 77 s) or *Blue Crew Roar*
+  (clicks ×77 for 13 s).
+- **Stats** shows your statistics, Alumni Pride and achievements.
+- **Settings** turns sound, falling leaves, floating numbers, the news ticker, short number format
+  and backup reminders on or off.
+
+### Graduating
+
+After 1 billion leaves (all time), a gold **Graduate** button appears. Graduating starts a new run:
+leaves, buildings and upgrades reset, but you keep your achievements and earn **Alumni Pride**, which
+permanently adds +2% production per point. The more leaves you earn in total, the more Alumni Pride
+you get (it grows with the cube root of all-time leaves: 1 billion = 1 point, 1 trillion = 10 points,
+1 quadrillion = 100 points).
 
 ## Saving your progress
 
@@ -56,7 +70,10 @@ Then visit <http://localhost:8602>.
 - **Export save** downloads a file such as `sycamore-sam-save-2026-11-17-14-40-00.json`. Keep it to
   back up your game or move it to another computer or browser.
 - **Import save** loads one of those files and continues from where you left off.
-- **Reset** erases your progress after a confirmation. Export first if you want a backup.
+- **Reset** erases all progress, including Alumni Pride, after a confirmation. Export first if you
+  want a backup. (To start over but keep bonuses, use Graduate instead.)
+- By default the game reminds you every 30 minutes to export a backup; turn this off in Settings.
+- Settings are stored in the browser separately and are not part of save files.
 
 Clearing your browser's site data erases the browser save, but not exported save files.
 
