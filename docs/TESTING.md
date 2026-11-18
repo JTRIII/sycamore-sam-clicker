@@ -73,12 +73,6 @@ file system in a real browser (the built-in browser only shows a static snapshot
 
 All unit tests were re-run after the fixes: 16 passed, 0 failed.
 
-## 5. GitHub Pages check (2026-11-18)
-
-The live site at <https://jtriii.github.io/sycamore-sam-clicker/> returned HTTP 200 for the page, scripts, styles and images. In the
-built-in browser, 20 clicks gave 20 leaves, a Sycamore Sapling could be bought, the browser save was
-written, and no images or requests failed.
-
 ## 4. Image update testing (2026-11-18)
 
 After real ISU photos replaced the emoji icons:
@@ -91,3 +85,9 @@ After real ISU photos replaced the emoji icons:
 | No failed network requests | Pass |
 | Big leaf, top-bar logo, falling leaves and golden leaf use the ISU logo leaf; golden leaf is gold | Pass |
 | Price and achievement icons use the ISU leaf (gold for earned, gray for locked) | Pass |
+
+## 5. GitHub Pages check (2026-11-18)
+
+The live site at <https://jtriii.github.io/sycamore-sam-clicker/> returned HTTP 200 for the page, scripts, styles and images. In the
+built-in browser, 20 clicks gave 20 leaves, a Sycamore Sapling could be bought, the browser save was
+written, and no images or requests failed.
